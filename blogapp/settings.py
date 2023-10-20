@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # Plugins
     'rest_framework',
     'rest_framework.authtoken',
+    'ckeditor',
     'knox',
     'allauth',
     'dj_rest_auth',
