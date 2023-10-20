@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Add your HTML head content here -->
+</head>
+<body>
+    <h1>{{ blog_post.title }}</h1>
+    <p>Author: <a href="/profile/{{ blog_post.author.username }}">{{ blog_post.author.username }}</a></p>
+    <p>Published on: {{ blog_post.created_at }}</p>
+    <div>
+        {{ blog_post.content | safe }}  <!-- Use the safe filter to render HTML content -->
+    </div>
+</body>
+</html>

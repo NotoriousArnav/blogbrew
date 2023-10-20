@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Add your HTML head content here -->
+</head>
+<body>
+    <h1>Blog Posts</h1>
+    <ul>
+        {% for post in blog_posts %}
+            <li>
+                <a href="{{ post.slug }}">{{ post.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
