@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.gitlab',
+    'avatar',
+    # 'userprofiles2',
     # Apps/Containers
     'socialapps_rest_login'
 ]
@@ -71,7 +73,7 @@ ROOT_URLCONF = 'blogapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR/'templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -167,3 +169,5 @@ ACCOUNT_FORMS = {
     'signup': 'socialapps_rest_login.forms.CustomSignupForm',
 }
 
+CKEDITOR_UPLOAD_PATH = "uploads/"
+AUTH_PROFILE_MODULE = 'socialapps_rest_login.models.UserProfile'

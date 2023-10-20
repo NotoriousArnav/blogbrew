@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<img
+    src="/media/{{ user_profile.pfp }}"
+    alt="{{ user_profile.user.first_name }}'s Profile Picture. Please Don't Steal"
+    width="20%"
+>
+<h1>
+    {{ user_profile.user.first_name }}'s Profile Page
+</h1>
+<p>
+    {{ user_profile.bio }}
+</p>
+{% endblock %}
