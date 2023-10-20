@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'avatar',
     # 'userprofiles2',
     # Apps/Containers
-    'socialapps_rest_login'
+    'socialapps_rest_login',
+    'blogs',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
+    "blogs.middleware.DeviceDetectionMiddleware",
 ]
 
 ROOT_URLCONF = 'blogapp.urls'
