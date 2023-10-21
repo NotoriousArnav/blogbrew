@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic import DetailView
 from .models import UserProfile, User
 from .forms import *
@@ -24,6 +24,24 @@ class Profile(DetailView):
         context = super().get_context_data(*args, **kwargs)
         return context
 
+class ProfilePicture(DetailView):
+    model = UserProfile  # Use the UserProfile model instead of User
+    slug_field = 'user__username'  # Use the User model's username
+    slug_url_kwarg = 'username'
+    template_name = "profile.html"
+    context_object_name = 'user_profile'
+
+    def get_object(self, queryset=None):
+        # Get the User object for the given username
+        user = User.objects.get(username=self.kwargs['username'])
+        print(user, self.kwargs['username'])
+        # Get the UserProfile associated with the User
+        return UserProfile.objects.get(user=user)
+
+    def get(self, request, *args, **kwargs):
+        user = self.get_object()
+        pfp_url = str(user.pfp)
+        return redirect(f"/media/{pfp_url}")
 
 from django.views.generic.edit import UpdateView
 

@@ -4,6 +4,7 @@ from user_agents import parse
 import json
 from django.views.generic import ListView, DetailView
 from .models import Post
+from socialapps_rest_login.models import UserProfile
 
 # Create your views here.
 @csrf_exempt
@@ -13,7 +14,14 @@ def index(req):
     ua = parse(req.META.get('HTTP_USER_AGENT'))
     if ua.is_mobile:
         return render(req, "landing-mobile.html")
-    return render(req, "landing.html")
+    blogs = Post.objects.order_by('-created_at')[:5]
+    return render(
+            req,
+            "landing.html",
+            context = {
+                "blogs": blogs
+            }
+        )
 
 class BlogListView(ListView):
     model = Post

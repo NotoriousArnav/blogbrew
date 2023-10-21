@@ -20,13 +20,17 @@
             <ul class="sm:flex gap-4">
                 <li><a href="/">Home</a></li>
                 <li><a href="https://brocode-tech.netlify.app">BroCode Tech Community</a></li>
+                {% if not user.is_authenticated %}
                 <li><a href="/accounts/login">Sign up</a></li>
+                {% else %}
+                <li><a href="/profile/{{user.username}}">Profile</a></li>
+                {% endif %}
             </ul>
         </nav>
         <div class="sm:p-7 p-4">
             <div class="sm:p-6 p-3">
                 <h1 class="sm:text-8xl text-5xl">Hi, This is Bromine!</h1>
-                <h3 class="sm:text-6xl text-3xl">The OpenSource blogging Platform for Devs, by Devs!</h3>
+                <h3 class="sm:text-6xl text-3xl">The OpenSource blog brewing Platform for Devs.</h3>
             </div>
             <hr>
             <div class="sm:grid block text-center grid-cols-2 gap-5 divide-x p-6">
@@ -36,12 +40,43 @@
                 </div>
                 <div class="items-center gap-6 p-2">
                     <img width="64" height="64" class="sm:inline-block hidden" src="/static/bromine.rmbg.png" alt="">
+                    {% if not user.is_authenticated %}
                     <a href="/accounts/login" class="p-4 rounded bg-red-800 hover:bg-orange-900 text-white">Register for Bromine</a>
+                    {% else %}
+                    <a href="/profile/{{ user.username }}" class="p-4 rounded bg-red-800 hover:bg-orange-900 text-white">{{ user.first_name }}'s Profile</a>
+                    {% endif %}
                 </div>
             </div>
+            <p>
+                If you don't like this Frontend, then please Contribute here at <a href="https://gitlab.com/NotoriousArnav/blogbrew">GitLab Repo</a> or <a href="https://github.com/NotoriousArnav/blogbrew">GitHub Repo</a> or Use our APIs to make a better frontend.
+            </p>
         </div>
     </section>
     <section class="sm:block hidden p-4" style="background-image: url('/static/bromine.jpg'); background-size: cover; background-position: center;">
+        <ul class="p-3 grid gap-4">
+            <strong class="text2-xl">Top Articles</strong>
+            <hr>
+           {% for x in blogs %}
+           <li class="flex divide-x bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-lg opacity-75">
+            <a alt="{{ x.author.username }}'s Profile" class="block p-1 align-middle" href="/profile/{{ x.author.username }}/">
+                <img class="rounded-lg block" height="64" width="64" src="/avatar/{{ x.author.username }}" alt="{{ x.author.first_name }}">
+            </a>
+            <a alt="Click here to Read {{ x.title }}" class="align-middle p-1" href="/blogs/{{ x.slug }}/">
+                <p class="text-sm">
+                    {{ x.author.first_name }} {{ x.author.last_name }}
+                    (@{{ x.author.username }})
+                </p>
+                <p class="text-3xl">
+                    {{ x.title }}
+                </p>
+                <p class="text-lg">
+                    {{ x.created_at }}
+                </p>
+            </a>
+           </li> 
+           <hr>
+           {% endfor %} 
+        </ul>
         <!-- Place this tag where you want the button to render. -->
         <a class="github-button" href="https://github.com/brocode501" aria-label="Follow @buttons on GitHub">Follow @BroCode501</a>
         <!-- Place this tag where you want the button to render. -->
