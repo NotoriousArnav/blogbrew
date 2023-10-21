@@ -47,9 +47,26 @@
                     {% endif %}
                 </div>
             </div>
-            <p>
-                If you don't like this Frontend, then please Contribute here at <a href="https://gitlab.com/NotoriousArnav/blogbrew">GitLab Repo</a> or <a href="https://github.com/NotoriousArnav/blogbrew">GitHub Repo</a> or Use our APIs to make a better frontend.
-            </p>
+            <hr>    
+            <div class="sm:grid block text-center divide-x divide-y grid-cols-2 gap-5">
+                <strong class="col-span-2 text-2xl p-2">Top Brewers</strong>
+                {% for user in users %}
+                <a class="p-2 flex gap-4" href="/profile/{{ user.user.username }}/">
+                    <img width="64" height="64" class="rounded-lg" src="/media/{{ user.pfp }}" alt="{{ user }}">
+                    <div class="">
+                        <span>
+                            {{ user.user.first_name }}
+                            @({{ user.user.username }})
+                        </span>
+                        -
+                        <span class="text-sm">
+                            {{ user.bio }}
+                        </span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            
         </div>
     </section>
     <section class="sm:block hidden p-4" style="background-image: url('/static/bromine.jpg'); background-size: cover; background-position: center;">
@@ -57,7 +74,7 @@
             <strong class="text2-xl">Top Articles</strong>
             <hr>
            {% for x in blogs %}
-           <li class="flex divide-x bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-lg opacity-75">
+           <li class="flex divide-x bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-lg transition-all opacity-50 hover:opacity-100">
             <a alt="{{ x.author.username }}'s Profile" class="block p-1 align-middle" href="/profile/{{ x.author.username }}/">
                 <img class="rounded-lg block" height="64" width="64" src="/avatar/{{ x.author.username }}" alt="{{ x.author.first_name }}">
             </a>
@@ -84,6 +101,9 @@
 <br>
 <p class="w-100">
     Built with ❤️ by BroCode Tech Community
+</p>
+<p>
+    If you don't like this Frontend, then please Contribute here at <a class="hover:underline" href="https://gitlab.com/NotoriousArnav/blogbrew">GitLab Repo</a> or <a class="hover:underline" href="https://github.com/NotoriousArnav/blogbrew">GitHub Repo</a> or Use our APIs to make a better frontend.
 </p>
     </section>
 <!-- 

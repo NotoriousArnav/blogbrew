@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.shortcuts import redirect
 #import socialapps_rest_login
 
 urlpatterns = [
@@ -25,5 +26,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('api/auth/', include('dj_rest_auth.urls')),
     path('', include('socialapps_rest_login.urls')),
-    path('', include('blogs.urls'))
+    path('', include('blogs.urls')),
+    path('accounts/profile/', lambda req: redirect(f'/profile/{req.user}/')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

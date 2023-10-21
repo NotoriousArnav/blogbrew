@@ -1,0 +1,6 @@
+<form method="post">
+    {% csrf_token %}
+    {{ form.text.label_tag }}
+    {{ form.text }}
+    <button type="submit">Post Comment</button>
+</form>

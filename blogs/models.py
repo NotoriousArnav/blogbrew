@@ -4,7 +4,6 @@ from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 # Create your models here.
-
 class Post(models.Model):
     uuid = models.UUIDField(
         default = uuid.uuid4,
@@ -41,3 +40,19 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class BlgComment(models.Model):
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        unique=True,
+        # null=True,
+        # primary_key=True
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user} commented {self.text} on {self.post} by {self.post.author}"
