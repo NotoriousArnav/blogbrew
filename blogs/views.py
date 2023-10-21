@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CommentForm
 from .models import Post
-from .models import BlgComment as Comment
+from .models import Tippani as Comment
 
 class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Post

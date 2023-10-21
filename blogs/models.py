@@ -42,7 +42,7 @@ class Post(models.Model):
         return self.title
 
 
-class BlgComment(models.Model):
+class Tippani(models.Model):
     uuid = models.UUIDField(
         default=uuid.uuid4,
         unique=True,
