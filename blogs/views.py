@@ -5,7 +5,7 @@ import json, random
 from django.views.generic import ListView, DetailView
 from socialapps_rest_login.models import UserProfile
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CommentForm
 from .models import Post
@@ -86,21 +86,18 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     # form_class = CommentForm
     template_name = 'comment_form.html'  # Create this template
     fields = ['text']
-    success_url = '/'  # Replace with your desired URL after posting a comment
+    success_url = '../'  # Replace with your desired URL after posting a comment
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.post = Post.objects.get(slug=self.kwargs['slug'])
         return super().form_valid(form)
 
-class CommentUpdateView(LoginRequiredMixin, UpdateView):
+class CommentDeleteView(LoginRequiredMixin, DeleteView):
     model = Comment
-    # form_class = CommentForm
-    template_name = 'comment_form.html'  # Create this template
-    fields = ['text']
-    # success_url = '/'  # Replace with your desired URL after posting a comment
+    template_name = 'comment_confirm_delete.html'
+    success_url = '../../../'
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.post = Post.objects.get(slug=self.kwargs['slug'])
-        return super().form_valid(form)
+    def get_object(self, queryset=None):
+        comment = Comment.objects.get(uuid=self.kwargs['uuid'])
+        return comment

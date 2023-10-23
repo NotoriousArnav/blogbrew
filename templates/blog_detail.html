@@ -48,6 +48,9 @@
                 <strong class="text-2xl">
                     Comments
                 </strong>
+                {% if user.is_authenticated %}
+                    <a href="comment/" class="hover:underline text-sm">New Comment</a>
+                {% endif %}
                 <br>
                 {% if comments %}
                 <ul class="grid sm:grid-cols-2 divide-x gap-4">
@@ -58,6 +61,9 @@
                             <a class="text-sm" href="/profile/{{ x.user.username }}">{{ x.user.first_name }} {{ x.user.last_name }}</a>
                             <p class="text-xl">{{ x.text }}</p>
                         </div>
+                        {% if x.user.username == user.username %}
+                        <a href="comment/{{ x.uuid }}/delete/" class="hover:underline">Delete</a>
+                        {% endif %}
                     </li>
                     {% endfor %}
                 </ul>
