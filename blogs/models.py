@@ -31,7 +31,8 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         # Automatically generate the slug from the title
-        self.slug = slugify(self.title)
+        slug_plus = str(str(self.uuid).split('-')[-1])
+        self.slug = slugify(self.title + slug_plus)
         
         # Automatically generate the meta_title from the title
         self.meta_title = f"{self.title} - Bromine"  # Replace 'Your Blog Name' with your actual blog name

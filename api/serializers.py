@@ -20,7 +20,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author_username = serializers.CharField(source='author.username', read_only=True)
-    
+
     class Meta:
         model = Post
         fields = [
@@ -32,3 +32,12 @@ class PostSerializer(serializers.ModelSerializer):
             'slug'
         ]
         
+class CreatePostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ['title', 'content']
+
+    def to_representation(self, instance):
+            data = super().to_representation(instance)
+            data['slug'] = instance.slug
+            return data

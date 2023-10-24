@@ -9,4 +9,6 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('user/<str:username>/profile', UserProfileModelViewSet.as_view()),
     path('blogs/', BlogListView.as_view()),
+    path('blogs/<slug>/', PostView.as_view()),
+    path('create/blog/', CreateBlogPostView.as_view())
 ]
