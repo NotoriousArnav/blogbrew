@@ -30,6 +30,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
 # Application definition
 
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Plugins
     'rest_framework',
+    'django_filters',
     'rest_framework.authtoken',
     'ckeditor',
     'knox',
@@ -57,6 +61,7 @@ INSTALLED_APPS = [
     # Apps/Containers
     'socialapps_rest_login',
     'blogs',
+    'api',
 ]
 
 MIDDLEWARE = [
