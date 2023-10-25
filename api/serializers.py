@@ -31,7 +31,11 @@ class PostSerializer(serializers.ModelSerializer):
             'created_at',
             'slug'
         ]
-        
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['slug'] = instance.slug
+        return data
+
 class CreatePostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
@@ -41,3 +45,8 @@ class CreatePostSerializer(serializers.ModelSerializer):
             data = super().to_representation(instance)
             data['slug'] = instance.slug
             return data
+
+class TippaniSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tippani
+        fields = '__all__'
