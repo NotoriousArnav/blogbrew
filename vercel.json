@@ -9,10 +9,6 @@
     }],
     "routes": [
         {
-            "src": "/static/(.*)",
-            "dest": "/static/$1"
-        },
-        {
             "src": "/(.*)",
             "dest": "blogapp/wsgi.py"
         }
