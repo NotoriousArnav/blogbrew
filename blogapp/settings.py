@@ -176,7 +176,7 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 STATIC_URL = 'static/'
-STATIC_ROOT = [
+STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
         os.path.join(BASE_DIR, 'staticfiles_build', 'static'),
         '/var/task/staticfiles_build/static',
