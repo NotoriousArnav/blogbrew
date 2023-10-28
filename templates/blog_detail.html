@@ -43,7 +43,7 @@
             </div>
             <hr>
             <div id="content">
-                {{ blog_post.content | safe }}  <!-- Use the safe filter to r{tender HTML content -->
+                {{ blog_post.content | escape | safe }}  <!-- Use the safe filter to r{tender HTML content -->
             </div>
             <div id="comments">
                 <strong class="text-2xl">
