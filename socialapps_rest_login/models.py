@@ -25,7 +25,9 @@ class UserProfile(models.Model):
     )
     bio = models.TextField()
     pfp = models.ImageField(
-        upload_to="uploads/"
+        upload_to="uploads/",
+        default = "../static/av.jpg",
+        null=True
     )
     def __str__(self):  
         return "%s's profile" % self.user
