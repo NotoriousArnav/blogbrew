@@ -10,6 +10,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CommentForm
 from .models import Post
 from .models import Tippani as Comment
+import bleach
+
+allowed_tags = ['a', 'p', 'strong', 'em', 'ul', 'ol', 'li'] + list(bleach.sanitizer.ALLOWED_TAGS) + ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre']
+bleach.sanitizer.ALLOWED_ATTRIBUTES.update({
+    'a': ['href', 'title'],
+    'p': [],
+    'strong': [],
+    'em': [],
+    'ul': [],
+    'ol': [],
+    'li': [],
+})
 
 class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -73,12 +85,19 @@ class BlogDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         # Add additional context data here
         obj = self.get_object()
+        sanitized_content = bleach.clean(
+                obj.content,
+                attributes=bleach.sanitizer.ALLOWED_ATTRIBUTES,
+                tags=allowed_tags
+            )
+
         m = Post.objects.filter(author=obj.author)
         n = sorted(Post.objects.order_by('-created_at')[:5], key=lambda x: random.random())
         comments = Comment.objects.filter(post=obj)
         context['m'] = m
         context['n'] = n
         context['comments'] = comments
+        context['sanitized_content'] = sanitized_content
         return context
 
 class CommentCreateView(LoginRequiredMixin, CreateView):

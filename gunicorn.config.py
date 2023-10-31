@@ -45,9 +45,9 @@ Otherwise you can Ignore this Message and continue.
 To skip this message:
     $ touch .skip_message
     """)
-
+import os
 bind = '0.0.0.0:' + environ.get('PORT', '8000')
-workers = cpu_count()
+# workers = cpu_count()
 
 # Add the --reload option
 reload = True

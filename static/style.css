@@ -1094,8 +1094,37 @@ video {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
+.\[-\:\=\] {
+  -: =;
+}
+
 body {
   /* background-color: #A7A6A4; */
+}
+
+h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+h4 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+h6 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .hover\:bg-orange-800:hover {
@@ -1159,3 +1188,5 @@ body {
     line-height: 1;
   }
 }
+
+

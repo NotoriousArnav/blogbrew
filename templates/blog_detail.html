@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>{{ blog_post.title }} - Bromine</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <!-- Add your HTML head content here -->
+    <!-- Include Prism.js library -->
+    <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
     <nav class="flex gap-4 items-center">
@@ -43,7 +43,7 @@
             </div>
             <hr>
             <div id="content">
-                {{ blog_post.content | escape | safe }}  <!-- Use the safe filter to r{tender HTML content -->
+                {{ sanitized_content | safe }}  <!-- Use the safe filter to r{tender HTML content -->
             </div>
             <div id="comments">
                 <strong class="text-2xl">
@@ -129,5 +129,10 @@
            </ul>
         </div>
     </section>
+    <script>
+  // Initialize Prism to highlight code blocks automatically
+  Prism.highlightAll();
+</script>
+
 </body>
 </html>
