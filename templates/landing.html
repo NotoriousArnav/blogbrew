@@ -55,7 +55,7 @@
                 {% for user in users %}
                 {% if user.pfp %}
                 <a class="p-2 flex gap-4" href="/profile/{{ user.user.username }}/">
-                    <img width="64" height="64" class="rounded-lg" src="/media/{{ user.pfp }}" alt="{{ user }}">
+                    <img width="64" height="64" class="rounded-lg" src="https://s3.tebi.io/mediavault/{{ user.pfp }}" alt="{{ user }}">
                     <div class="">
                         <span>
                             {{ user.user.first_name }}

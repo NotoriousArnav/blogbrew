@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Plugins
     'rest_framework',
-    'storages',
+    #'storages',
     # 'rest_framework_swagger',
     'django_filters',
     'rest_framework.authtoken',
@@ -173,7 +173,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-MEDIA_URL = 'media/'
+#MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 STATIC_URL = 'static/'
@@ -210,5 +210,7 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.tebi.io' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-AWS_LOCATION = 'static_media'
+AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = ''
+MEDIA_URL = f"https://s3.tebi.io/{AWS_STORAGE_BUCKET_NAME}/"
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

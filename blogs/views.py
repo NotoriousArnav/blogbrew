@@ -58,7 +58,7 @@ def index(req):
             "landing.html",
             context = {
                 "blogs": blogs,
-                "users": users,
+                "users": users[::-1],
             }
         )
 
