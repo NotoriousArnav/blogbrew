@@ -47,7 +47,7 @@ packaging #==23.2
 paramiko #==3.3.1
 Pillow #==10.1.0
 platformdirs #==3.11.0
-psycopg2 #==2.9.9
+psycopg2-binary #==2.9.9
 pycparser #==2.21
 pyhcl #==0.4.5
 PyJWT #==2.8.0
