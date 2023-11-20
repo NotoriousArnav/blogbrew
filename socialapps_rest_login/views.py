@@ -41,7 +41,7 @@ class ProfilePicture(DetailView):
     def get(self, request, *args, **kwargs):
         user = self.get_object()
         pfp_url = str(user.pfp)
-        return redirect(f"/media/{pfp_url}")
+        return redirect(f"https://s3.tebi.io/mediavault/{pfp_url}")
 
 from django.views.generic.edit import UpdateView
 

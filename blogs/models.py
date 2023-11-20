@@ -1,8 +1,10 @@
 import uuid
 from django.db import models
 from django.utils.text import slugify
+from django.utils.html import strip_tags
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
+from django.template.defaultfilters import truncatewords
 # Create your models here.
 class Post(models.Model):
     uuid = models.UUIDField(
@@ -28,6 +30,14 @@ class Post(models.Model):
 
     # Add a timestamp for publication date
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def generate_meta_title(self):
+        return f"{self.title} - {self.author.username}'s Blog"
+
+    def generate_meta_description(self, max_words=30):
+        content_text = strip_tags(self.content)
+        truncated_content = truncatewords(content_text, max_words)
+        return f"{truncated_content} - Read more on {self.author.username}'s Blog"
 
     def save(self, *args, **kwargs):
         # Automatically generate the slug from the title

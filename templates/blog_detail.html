@@ -1,7 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ blog_post.title }} - Bromine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ blog_post.generate_meta_title }}</title>
+    <meta name="description" content="{{ blog_post.generate_meta_description }}">
+    <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://bromine.vercel.app/" />
+  <meta property="og:title" content="{{ post.title }}" />
+  <meta property="og:description" content="{{ post.generate_meta_description }}" />
+  <!--<meta property="og:image" content="https://metatags.io/images/meta-tags.png" />-->
+
+<!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://bromine.vercel.app/" />
+  <meta property="twitter:title" content="{{ post.title }}" />
+  <meta property="twitter:description" content="{{ post.generate_meta_description }}" />
+  <!--<meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />-->
+
     <!-- Include Prism.js library -->
     <link rel="stylesheet" href="/static/style.css" />
 </head>
@@ -42,7 +58,7 @@
                 </div>
             </div>
             <hr>
-            <div id="content">
+            <div id="content" class="prose">
                 {{ sanitized_content | safe }}  <!-- Use the safe filter to r{tender HTML content -->
             </div>
             <div id="comments">
