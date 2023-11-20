@@ -3,6 +3,7 @@ from django.views.generic import DetailView
 from .models import UserProfile, User
 from .forms import *
 from django.contrib.auth.decorators import login_required
+from blogs.models import Post
 
 # Create your views here.
 
@@ -22,6 +23,7 @@ class Profile(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
+        context['user_posts'] = Post.objects.filter(author=context['user_profile'].user)
         return context
 
 class ProfilePicture(DetailView):

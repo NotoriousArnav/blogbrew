@@ -1,35 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ blog_post.generate_meta_title }}</title>
     <meta name="description" content="{{ blog_post.generate_meta_description }}">
     <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://bromine.vercel.app/" />
-  <meta property="og:title" content="{{ post.title }}" />
-  <meta property="og:description" content="{{ post.generate_meta_description }}" />
-  <!--<meta property="og:image" content="https://metatags.io/images/meta-tags.png" />-->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://bromine.vercel.app/" />
+    <meta property="og:title" content="{{ blog_post.title }}" />
+    <meta property="og:description" content="{{ blog_post.generate_meta_description }}" />
 
-<!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://bromine.vercel.app/" />
-  <meta property="twitter:title" content="{{ post.title }}" />
-  <meta property="twitter:description" content="{{ post.generate_meta_description }}" />
-  <!--<meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />-->
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://bromine.vercel.app/" />
+    <meta property="twitter:title" content="{{ blog_post.title }}" />
+    <meta property="twitter:description" content="{{ blog_post.generate_meta_description }}" />
 
     <!-- Include Prism.js library -->
     <link rel="stylesheet" href="/static/style.css" />
 </head>
-<body>
-    <nav class="flex gap-4 items-center">
+
+<body class="font-sans bg-gray-100">
+    <nav class="flex items-center p-4">
         <img src="/static/bromine.rmbg.png" width="100" height="100" alt="">
         <strong class="text-xl">
-            <span>
-                Bromine
-            </span>
+            Bromine
         </strong>
-        <ul class="sm:flex gap-4">
+        <ul class="ml-auto flex gap-4">
             <li><a href="/">Home</a></li>
             <li><a href="https://brocode-tech.netlify.app">BroCode Tech Community</a></li>
             {% if not user.is_authenticated %}
@@ -40,11 +38,12 @@
             {% endif %}
         </ul>
     </nav>
-    <section class="grid sm:grid-cols-4 p-2">
-        <article class="col-span-3">
-            <div id="meta-data" class="p-2 grid grid-cols-6">
+
+    <section class="grid grid-cols-1 sm:grid-cols-4 p-2 gap-4">
+        <article class="sm:col-span-3">
+            <div id="meta-data" class="grid grid-cols-6 p-2">
                 <a href="/profile/{{ blog_post.author.username }}">
-                    <img src="/avatar/{{ blog_post.author.username }}" alt="{{ blog_post.author }}">
+                    <img src="/avatar/{{ blog_post.author.username }}" alt="{{ blog_post.author }}" class="col-span-1">
                 </a>
                 <div class="col-span-5 p-2">
                     <h1 class="text-4xl">{{ blog_post.title }}</h1>
@@ -57,11 +56,11 @@
                     {% endif %}
                 </div>
             </div>
-            <hr>
+            <hr class="my-4">
             <div id="content" class="prose">
-                {{ sanitized_content | safe }}  <!-- Use the safe filter to r{tender HTML content -->
+                {{ sanitized_content | safe }} <!-- Use the safe filter to render HTML content -->
             </div>
-            <div id="comments">
+            <div id="comments" class="mt-4">
                 <strong class="text-2xl">
                     Comments
                 </strong>
@@ -70,85 +69,75 @@
                 {% endif %}
                 <br>
                 {% if comments %}
-                <ul class="grid sm:grid-cols-2 divide-x gap-4">
+                <ul class="grid grid-cols-1 sm:grid-cols-2 divide-x gap-4 mt-4">
                     {% for x in comments %}
-                    <li class="p-2 gap-4">
-                        <img class="inline rounded-lg" height="32" width="32" src="/avatar/{{ x.user.username }}" alt="{{ x.user }}">
-                        <div>
-                            <a class="text-sm" href="/profile/{{ x.user.username }}">{{ x.user.first_name }} {{ x.user.last_name }}</a>
-                            <p class="text-xl">{{ x.text }}</p>
+                    <li class="p-2">
+                        <div class="flex items-start gap-4">
+                            <img src="/avatar/{{ x.user.username }}" alt="{{ x.user }}" class="rounded-full h-8 w-8">
+                            <div>
+                                <a href="/profile/{{ x.user.username }}" class="text-sm">{{ x.user.first_name }} {{ x.user.last_name }}</a>
+                                <p class="text-xl">{{ x.text }}</p>
+                            </div>
                         </div>
                         {% if x.user.username == user.username %}
-                        <a href="comment/{{ x.uuid }}/delete/" class="hover:underline">Delete</a>
+                        <a href="comment/{{ x.uuid }}/delete/" class="hover:underline mt-2">Delete</a>
                         {% endif %}
                     </li>
                     {% endfor %}
                 </ul>
                 {% else %}
-                <strong>No Comments Found</strong>
+                <strong class="mt-4">No Comments Found</strong>
                 {% endif %}
             </div>
         </article>
-        <div class="divide-x p-2">
-           <strong class="text-xl">
-            More from {{ blog_post.author }}
-           </strong> 
-           <hr>
-           <ul>
+        <div class="sm:divide-x p-2">
+            <strong class="text-xl">
+                More from {{ blog_post.author }}
+            </strong>
+            <hr class="my-4">
+            <ul>
                 {% for x in m %}
                 <li class="flex p-2">
-                    <a alt="{{ x.author.username }}'s Profile" class="block p-1 align-middle" href="/profile/{{ x.author.username }}/">
-                        <img class="rounded-lg block" height="64" width="64" src="/avatar/{{ x.author.username }}" alt="{{ x.author.first_name }}">
+                    <a href="/profile/{{ x.author.username }}/">
+                        <img src="/avatar/{{ x.author.username }}" alt="{{ x.author.first_name }}" class="rounded-lg h-16 w-16">
                     </a>
-                    <a alt="Click here to Read {{ x.title }}" class="align-middle p-1" href="/blogs/{{ x.slug }}/">
-                        <p class="text-sm">
-                            {{ x.author.first_name }} {{ x.author.last_name }}
-                            (@{{ x.author.username }})
-                        </p>
-                        <p class="text-2xl">
-                            {{ x.title }}
-                        </p>
-                        <p class="text-lg">
-                            {{ x.created_at }}
-                        </p>
-                    </a>
+                    <div class="ml-4">
+                        <a href="/profile/{{ x.author.username }}/" class="text-sm">{{ x.author.first_name }} {{ x.author.last_name }} (@{{ x.author.username }})</a>
+                        <a href="/blogs/{{ x.slug }}/" class="block text-2xl">{{ x.title }}</a>
+                        <p class="text-lg">{{ x.created_at }}</p>
+                    </div>
                 </li>
-                <hr>
+                <hr class="my-4">
                 {% endfor %}
-           </ul>
-           <hr>
-           <strong class="text-xl">
-            More Like this
-           </strong>
-           <hr>
-           <ul>
-            {% for x in n %}
-            <li class="flex p-2">
-                <a alt="{{ x.author.username }}'s Profile" class="block p-1 align-middle" href="/profile/{{ x.author.username }}/">
-                <img class="rounded-lg block" height="64" width="64" src="/avatar/{{ x.author.username }}" alt="{{ x.author.first_name }}">
-            </a>
-            <a alt="Click here to Read {{ x.title }}" class="align-middle p-1" href="/blogs/{{ x.slug }}/">
-                <p class="text-sm">
-                    {{ x.author.first_name }} {{ x.author.last_name }}
-                    (@{{ x.author.username }})
-                </p>
-                <p class="text-2xl">
-                    {{ x.title }}
-                </p>
-                <p class="text-lg">
-                    {{ x.created_at }}
-                </p>
-            </a>
-            </li>
-            <hr>
-            {% endfor %}
-           </ul>
+            </ul>
+            <strong class="text-xl mt-4">
+                More Like This
+            </strong>
+            <hr class="my-4">
+            <ul>
+                {% for x in n %}
+                <li class="flex p-2">
+                    <a href="/profile/{{ x.author.username }}/">
+                        <img src="/avatar/{{ x.author.username }}" alt="{{ x.author.first_name }}" class="rounded-lg h-16 w-16">
+                    </a>
+                    <div class="ml-4">
+                        <a href="/profile/{{ x.author.username }}/" class="text-sm">{{ x.author.first_name }} {{ x.author.last_name }} (@{{ x.author.username }})</a>
+                        <a href="/blogs/{{ x.slug }}/" class="block text-2xl">{{ x.title }}</a>
+                        <p class="text-lg">{{ x.created_at }}</p>
+                    </div>
+                </li>
+                <hr class="my-4">
+                {% endfor %}
+            </ul>
         </div>
     </section>
+
     <script>
-  // Initialize Prism to highlight code blocks automatically
-  Prism.highlightAll();
-</script>
+        // Initialize Prism to highlight code blocks automatically
+        Prism.highlightAll();
+    </script>
 
 </body>
+
 </html>
+
