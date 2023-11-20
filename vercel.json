@@ -4,7 +4,7 @@
         "use": "@vercel/python",
         "config": {
             "maxLambdaSize": "15mb",
-            "runtime": "python3.10" 
+            "runtime": "python3.11" 
         }
     }],
     "routes": [
