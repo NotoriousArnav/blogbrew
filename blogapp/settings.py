@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Plugins
     'rest_framework',
+    'storages',
     # 'rest_framework_swagger',
     'django_filters',
     'rest_framework.authtoken',
@@ -194,5 +195,20 @@ ACCOUNT_FORMS = {
     'signup': 'socialapps_rest_login.forms.CustomSignupForm',
 }
 
+# django < 4.2
+#DEFAULT_FILE_STORAGE = 'storages.backends.ftp.FTPStorage'
+#FTP_STORAGE_LOCATION = os.environ.get('FTP_STORAGE_LOCATION')
+
 CKEDITOR_UPLOAD_PATH = "uploads/"
 AUTH_PROFILE_MODULE = 'socialapps_rest_login.models.UserProfile'
+
+AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_S3_ENDPOINT_URL='https://s3.tebi.io'
+AWS_STORAGE_BUCKET_NAME = 'mediavault'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.tebi.io' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static_media'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
