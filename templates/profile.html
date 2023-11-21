@@ -1,5 +1,25 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<title>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}'s Profile on Bromine</title>
+<meta name="description" content="{{ user_profile.bio }}" />
+<meta name="author" content="{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}" />
+<!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://bromine.vercel.app/" />
+    <meta property="og:title" content="{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}'s Profile on Bromine" />
+    <meta property="og:image" content="https://s3.tebio.io/mediavault/{{ user_profile.pfp }}"/>
+    <meta property="og:description" content="{{ user_profile.bio }}" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://bromine.vercel.app/" />
+    <meta property="twitter:title" content="View {{ user_profile.user.first_name }}'s Prodile on Bromine" />
+    <meta property="twitter:description" content="{{ user_profile.bio }}" />
+    <meta property="twitter:image" content="https://s3.tebio.io/mediavault/{{ user_profile.pfp }}"/>
+
+{% endblock %}
+
 {% block content %}
 <div class="container mx-auto p-8">
     <div class="flex items-center justify-center mb-8">
@@ -11,6 +31,8 @@
             {%if user.username == user_profile.user.username %} 
               <p>
                 <a class="text-black hover:underline" href="/edit-profile/">Edit</a>
+                &nbsp;
+                <a class="text-black hover:underline" href="/accounts/logout/">Logout</a>
               </p>
             {% endif %}
           {% endif %}
@@ -19,14 +41,18 @@
 
     <div class="sm:grid sm:grid-cols-2">
         <h2 class="text-2xl font-bold mb-4 sm:col-span-2">Posts by {{ user_profile.user.first_name }}</h2>
-        {% for post in user_posts %}
+        {% if user_posts %}
+          {% for post in user_posts %}
         <a href="/blogs/{{ post.slug }}" class="group block no-underline hover:bg-gray-100 rounded-md p-4 mb-4">
                 <h3 class="text-xl font-bold mb-2">{{ post.title }}</h3>
                 <p class="hidden group-hover:block group-hover:transition-all duration-100 text-gray-800">{{ post.generate_meta_description }}</p>
                 <p class="text-gray-600">Published on: {{ post.created_at }}</p>
                 <!-- Add more post details as needed -->
             </a>
-        {% endfor %}
+          {% endfor %}
+          {% else %}
+            <p>No Posts Found :( </p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

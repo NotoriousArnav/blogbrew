@@ -52,12 +52,12 @@
             </div>
             <hr class="my-4">
             {% if users %}
-                <div class="sm:grid block text-center divide-x divide-y grid-cols-2 gap-5">
+                <div class="sm:grid block text-center grid-cols-2 gap-5">
                     <strong class="col-span-2 text-2xl p-2">Top Brewers</strong>
                     {% for user in users %}
                     {% if user.pfp %}
-                    <a class="p-2 flex gap-4" href="/profile/{{ user.user.username }}/">
-                        <img width="64" height="64" class="rounded-lg" src="https://s3.tebi.io/mediavault/{{ user.pfp }}" alt="{{ user }}">
+                    <a class="p-1 flex gap-2 group hover:bg-gray-200 hover:scale-105 hover:border duration-50 transition" href="/profile/{{ user.user.username }}/">
+                        <img class="rounded-lg" style="max-width: 20%" src="https://s3.tebi.io/mediavault/{{ user.pfp }}" alt="{{ user }}">
                         <div>
                             <span class="block">
                                 {{ user.user.first_name }}

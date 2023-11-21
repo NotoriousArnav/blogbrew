@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.django-ckeditor-widget {
+  width: 100%;
+}
+
 .prose a {
   @apply text-blue-400 hover:text-blue-500 hover:underline;
 }

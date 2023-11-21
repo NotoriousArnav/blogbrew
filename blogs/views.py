@@ -48,11 +48,23 @@ def index(req):
     # if req.is_mobile:
     #     return render(req, "landing-mobile.html")
     ua = parse(req.META.get('HTTP_USER_AGENT'))
-    if ua.is_mobile:
-        return render(req, "landing-mobile.html")
     blogs = Post.objects.order_by('-created_at')[:5]
-    users = list(sorted(UserProfile.objects.all(), key=lambda x: random.random()))[:10]
+    users = list(
+                sorted(
+                    UserProfile.objects.all(),
+                    key=lambda x: random.random()
+                )
+            )[:10]
     print(users)
+    if ua.is_mobile:
+        return render(
+                    req,
+                    "landing-mobile.html",
+                    context = {
+                            "blogs": blogs,
+                            "users": users,
+                        }
+                )
     return render(
             req,
             "landing.html",
