@@ -1,10 +1,5 @@
 {
-    "regions": [
-      "sfo1",
-      "bom1",
-      "iad1"
-    ],
-    "builds": [{
+        "builds": [{
         "src": "blogapp/wsgi.py",
         "use": "@vercel/python",
         "config": {
