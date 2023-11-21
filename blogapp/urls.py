@@ -19,6 +19,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import redirect
+from django.contrib.sitemaps.views import sitemap
+from blogs.sitemap import PostSitemap
+from socialapps_rest_login.sitemap import UserProfileSitemap
 #import socialapps_rest_login
 
 urlpatterns = [
@@ -29,4 +32,5 @@ urlpatterns = [
     path('', include('blogs.urls')),
     path('accounts/profile/', lambda req: redirect(f'/profile/{req.user}/')),
     path('api/', include('api.urls')),
+    path('sitemap.xml', sitemap, {'sitemaps': {'post': PostSitemap, 'userprofile': UserProfileSitemap}}),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

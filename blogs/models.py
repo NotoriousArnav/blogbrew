@@ -5,6 +5,7 @@ from django.utils.html import strip_tags
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.template.defaultfilters import truncatewords
+from django.urls import reverse
 # Create your models here.
 class Post(models.Model):
     uuid = models.UUIDField(
@@ -30,6 +31,9 @@ class Post(models.Model):
 
     # Add a timestamp for publication date
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('blog-detail', args=[str(self.slug)])
 
     def generate_meta_title(self):
         return f"{self.title} - {self.author.username}'s Blog"

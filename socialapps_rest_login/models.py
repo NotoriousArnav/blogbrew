@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from uuid import uuid4
 from datetime import date
+from django.urls import reverse
 
 # Create your models here.
 class UserProfile(models.Model):
@@ -31,6 +32,9 @@ class UserProfile(models.Model):
     )
     def __str__(self):  
         return "%s's profile" % self.user
+    
+    def get_absolute_url(self):
+        return reverse('profile_view', args=[str(self.user.username)])
 
 def create_user_profile(sender, instance, created, **kwargs):  
     if created:  

@@ -27,7 +27,7 @@ class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'blog_form.html'  # Replace with your template name
     fields = ['title', 'content']  # Fields to include in the form
-    success_url = '/blogs/'  # Replace with your desired URL after creating a new blog post
+    success_url = '/'  # Replace with your desired URL after creating a new blog post
 
     def form_valid(self, form):
         form.instance.author = self.request.user
