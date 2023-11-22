@@ -27,7 +27,7 @@ class UserProfile(models.Model):
     bio = models.TextField()
     pfp = models.ImageField(
         upload_to="uploads/",
-        default = "https://s3.tebi.io/mediavault/av.jpg",
+        default = "av.jpg",
         null=True
     )
     def __str__(self):  

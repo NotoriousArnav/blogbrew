@@ -46,7 +46,12 @@
                     <img src="/avatar/{{ blog_post.author.username }}" alt="{{ blog_post.author }}" class="col-span-1">
                 </a>
                 <div class="col-span-5 p-2">
-                    <h1 class="text-4xl">{{ blog_post.title }}</h1>
+                    <h1 class="text-4xl">
+              {% if not blog_post.public %}
+                [Private] 
+              {% endif %}
+                      {{ blog_post.title }}
+                    </h1>
                     <p class="text-xl">Author: <a href="/profile/{{ blog_post.author.username }}">{{ blog_post.author.username }}</a></p>
                     <p class="text-bold">Published on: {{ blog_post.created_at }}</p>
                     {% if user.username == blog_post.author.username %}

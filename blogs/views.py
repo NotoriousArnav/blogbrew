@@ -26,7 +26,7 @@ bleach.sanitizer.ALLOWED_ATTRIBUTES.update({
 class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'blog_form.html'  # Replace with your template name
-    fields = ['title', 'content']  # Fields to include in the form
+    fields = ['title', 'content', 'public']  # Fields to include in the form
     success_url = '/'  # Replace with your desired URL after creating a new blog post
 
     def form_valid(self, form):
@@ -36,8 +36,8 @@ class BlogCreateView(LoginRequiredMixin, CreateView):
 class BlogUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'blog_form.html'  # Replace with your template name
-    fields = ['title', 'content']  # Fields to include in the form
-    success_url = '/blogs/'  # Replace with your desired URL after editing a blog post
+    fields = ['title', 'content', 'public']  # Fields to include in the form
+    success_url = '/'  # Replace with your desired URL after editing a blog post
 
     def get_queryset(self):
         return Post.objects.filter(author=self.request.user)
@@ -48,7 +48,7 @@ def index(req):
     # if req.is_mobile:
     #     return render(req, "landing-mobile.html")
     ua = parse(req.META.get('HTTP_USER_AGENT'))
-    blogs = Post.objects.order_by('-created_at')[:5]
+    blogs = Post.objects.filter(public=True).order_by('-created_at')[:5]
     users = list(
                 sorted(
                     UserProfile.objects.all(),
@@ -79,6 +79,10 @@ class BlogListView(ListView):
     template_name = 'blog_list.html'  # Replace with the actual template name
     context_object_name = 'blog_posts'
     ordering = ['-created_at']  # Optional: to order the posts by creation date
+
+    def get_queryset(self):
+        # Filter only public blog posts
+        return Post.objects.filter(public=True).order_by('-created_at')[:5]
 
     # Optional: Add any additional context data if needed
     def get_context_data(self, **kwargs):

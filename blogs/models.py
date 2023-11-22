@@ -28,6 +28,7 @@ class Post(models.Model):
     content = RichTextField()
 
     slug = models.SlugField(unique=True, max_length=512, editable=False)
+    public = models.BooleanField(default=True)
 
     # Add a timestamp for publication date
     created_at = models.DateTimeField(auto_now_add=True)
@@ -54,7 +55,7 @@ class Post(models.Model):
         super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return f"{self.title} - {self.author.username} (Public: {self.public})"
 
 
 class Tippani(models.Model):

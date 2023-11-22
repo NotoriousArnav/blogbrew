@@ -54,7 +54,7 @@
             <hr class="my-4">
             {% if users %}
                 <div class="sm:grid block text-center grid-cols-2 gap-5">
-                    <strong class="col-span-2 text-2xl p-2">Top Brewers</strong>
+                    <strong class="col-span-2 text-2xl p-2">Some of our Brewers</strong>
                     {% for user in users %}
                     {% if user.pfp %}
                     <a class="p-1 flex gap-2 group hover:bg-gray-200 hover:scale-105 hover:border duration-50 transition" href="/profile/{{ user.user.username }}/">
