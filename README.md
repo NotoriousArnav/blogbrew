@@ -35,6 +35,11 @@ python -m venv env --prompt bromine
 pip install -r requirements.txt
 ```
 
+4. To run
+```bash
+  gunicorn -c gunicorn.config.py blogapp.wsgi:app
+```
+
 ## Maintainers
 
 - [Arnav Ghosh](https://github.com/NotoriousArnav/)
