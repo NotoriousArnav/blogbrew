@@ -59,7 +59,7 @@
                     {% for user in users %}
                     {% if user.pfp %}
                     <a class="p-1 flex gap-2 group hover:bg-gray-200 hover:scale-105 hover:border duration-50 transition" href="/profile/{{ user.user.username }}/">
-                        <img class="rounded-lg" style="max-width: 20%" src="https://s3.tebi.io/mediavault/{{ user.pfp }}" alt="{{ user }}">
+                        <img class="rounded-lg" style="object-fit: cover; max-width: 20%" src="https://s3.tebi.io/mediavault/{{ user.pfp }}" alt="{{ user }}">
                         <div>
                             <span class="block">
                                 {{ user.user.first_name }}
