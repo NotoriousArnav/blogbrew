@@ -72,4 +72,5 @@ If everything you did went Corectly, bromine should be Running Smoothly.
 ## Maintainers
 - [Arnav Ghosh](https://github.com/NotoriousArnav/)
 - [Prantik Seal](https://github.com/prantikseal)
+- [Bhaskar Mandal](https://github.com/Mbittu00)
 
