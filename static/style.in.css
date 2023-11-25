@@ -66,4 +66,7 @@ h6 {
   line-height: 1.25rem;
 }
 
+pre {
+  @apply p-4 m-4 border-2;
+}
 

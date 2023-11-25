@@ -22,12 +22,12 @@
 </head>
 
 <body class="font-sans bg-gray-100">
-    <nav class="flex items-center p-4">
+    <nav class="flex items-center p-4 gap-4">
         <img src="/static/bromine.rmbg.png" width="100" height="100" alt="">
         <strong class="text-xl">
             Bromine
         </strong>
-        <ul class="ml-auto flex gap-4">
+        <ul class="ml-auto grid sm:grid-cols-5 gap-4">
             <li><a href="/">Home</a></li>
             <li><a href="https://brocode-tech.netlify.app">BroCode Tech Community</a></li>
             {% if not user.is_authenticated %}
@@ -39,9 +39,9 @@
         </ul>
     </nav>
 
-    <section class="grid grid-cols-1 sm:grid-cols-4 p-2 gap-4">
-        <article class="sm:col-span-3">
-            <div id="meta-data" class="grid grid-cols-6 p-2">
+    <section class="grid grid-cols-1 sm:grid-cols-6 p-2 gap-4">
+        <article class="sm:col-span-4">
+            <div id="meta-data" class="grid sm:grid-cols-6 p-2">
                 <a href="/profile/{{ blog_post.author.username }}">
                     <img src="/avatar/{{ blog_post.author.username }}" alt="{{ blog_post.author }}" class="col-span-1">
                 </a>
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <hr class="my-4">
-            <div id="content" class="prose break-normal">
+            <div id="content" class="prose">
                 {{ sanitized_content | safe }} <!-- Use the safe filter to render HTML content -->
             </div>
             <div id="comments" class="mt-4">
@@ -95,18 +95,19 @@
                 {% endif %}
             </div>
         </article>
-        <div class="sm:divide-x p-2">
+        <div class="sm:divide-x p-2 sm:col-span-2">
             <strong class="text-xl">
                 More from {{ blog_post.author }}
             </strong>
             <hr class="my-4">
+            {% if m %}
             <ul>
                 {% for x in m %}
-                <li class="flex p-2">
-                    <a href="/profile/{{ x.author.username }}/">
-                        <img src="/avatar/{{ x.author.username }}" alt="{{ x.author.first_name }}" class="rounded-lg h-16 w-16">
+                <li class="grid grid-cols-10 p-2">
+                    <a class="col-span-2" href="/profile/{{ x.author.username }}/">
+                        <img src="/avatar/{{ x.author.username }}" alt="{{ x.author.first_name }}" class="rounded-lg">
                     </a>
-                    <div class="ml-4">
+                    <div class="ml-4 col-span-8">
                         <a href="/profile/{{ x.author.username }}/" class="text-sm">{{ x.author.first_name }} {{ x.author.last_name }} (@{{ x.author.username }})</a>
                         <a href="/blogs/{{ x.slug }}/" class="block text-2xl">{{ x.title }}</a>
                         <p class="text-lg">{{ x.created_at }}</p>
@@ -115,17 +116,22 @@
                 <hr class="my-4">
                 {% endfor %}
             </ul>
+            {% else %}
+              <p>
+                No more Posts from {{ blog_post.author.username }}
+              </p>
+            {% endif %}
             <strong class="text-xl mt-4">
                 More Like This
             </strong>
             <hr class="my-4">
             <ul>
                 {% for x in n %}
-                <li class="flex p-2">
-                    <a href="/profile/{{ x.author.username }}/">
-                        <img src="/avatar/{{ x.author.username }}" alt="{{ x.author.first_name }}" class="rounded-lg h-16 w-16">
+                <li class="grid grid-cols-10 p-2">
+                    <a class="col-span-2" href="/profile/{{ x.author.username }}/">
+                        <img src="/avatar/{{ x.author.username }}" alt="{{ x.author.first_name }}" class="rounded-lg">
                     </a>
-                    <div class="ml-4">
+                    <div class="ml-4 col-span-8">
                         <a href="/profile/{{ x.author.username }}/" class="text-sm">{{ x.author.first_name }} {{ x.author.last_name }} (@{{ x.author.username }})</a>
                         <a href="/blogs/{{ x.slug }}/" class="block text-2xl">{{ x.title }}</a>
                         <p class="text-lg">{{ x.created_at }}</p>

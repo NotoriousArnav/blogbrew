@@ -114,8 +114,14 @@ class BlogDetailView(DetailView):
                 tags=allowed_tags
             )
 
-        m = Post.objects.filter(author=obj.author)
-        n = sorted(Post.objects.order_by('-created_at')[:5], key=lambda x: random.random())
+        m = sorted(
+                    Post.objects.filter(author=obj.author, public=True),
+                    key=lambda x: random.random()
+                )
+        n = sorted(
+                    Post.objects.filter(public=True).order_by('-created_at')[:5],
+                    key=lambda x: random.random()
+                )
         comments = Comment.objects.filter(post=obj)
         context['m'] = m
         context['n'] = n

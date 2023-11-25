@@ -656,8 +656,20 @@ video {
   grid-column: span 3 / span 3;
 }
 
+.col-span-4 {
+  grid-column: span 4 / span 4;
+}
+
 .col-span-5 {
   grid-column: span 5 / span 5;
+}
+
+.col-span-7 {
+  grid-column: span 7 / span 7;
+}
+
+.col-span-8 {
+  grid-column: span 8 / span 8;
 }
 
 .m-1 {
@@ -670,6 +682,10 @@ video {
 
 .m-20 {
   margin: 5rem;
+}
+
+.m-4 {
+  margin: 1rem;
 }
 
 .m-5 {
@@ -939,6 +955,10 @@ video {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.grid-cols-10 {
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -1024,6 +1044,10 @@ video {
 .break-normal {
   overflow-wrap: normal;
   word-break: normal;
+}
+
+.break-all {
+  word-break: break-all;
 }
 
 .rounded {
@@ -1526,6 +1550,12 @@ h6 {
   line-height: 1.25rem;
 }
 
+pre {
+  margin: 1rem;
+  border-width: 2px;
+  padding: 1rem;
+}
+
 .hover\:scale-105:hover {
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
@@ -1607,8 +1637,8 @@ h6 {
     grid-column: span 2 / span 2;
   }
 
-  .sm\:col-span-3 {
-    grid-column: span 3 / span 3;
+  .sm\:col-span-4 {
+    grid-column: span 4 / span 4;
   }
 
   .sm\:ml-10 {
@@ -1639,8 +1669,12 @@ h6 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .sm\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .sm\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
   .sm\:divide-x > :not([hidden]) ~ :not([hidden]) {
@@ -1671,5 +1705,4 @@ h6 {
     line-height: 1;
   }
 }
-
 
