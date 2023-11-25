@@ -89,7 +89,7 @@ class BlogListView(ListView):
 
     def get_queryset(self):
         # Filter only public blog posts
-        return Post.objects.filter(public=True).order_by('-created_at')[:5]
+        return Post.objects.filter(public=True).order_by('-created_at')
 
     # Optional: Add any additional context data if needed
     def get_context_data(self, **kwargs):
