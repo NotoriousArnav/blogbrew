@@ -3,6 +3,7 @@ from django.views.generic import DetailView
 from .models import UserProfile, User
 from .forms import *
 from django.contrib.auth.decorators import login_required
+from blogs.models import Post
 
 # Create your views here.
 
@@ -22,6 +23,12 @@ class Profile(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
+        context['user_posts'] = Post.objects.filter(author=context['user_profile'].user, public=True)
+        if self.request.user.is_authenticated:
+            if self.request.user.username == context['user_profile'].user.username:
+                print("Inside Profile View")
+                context['user_posts'] = Post.objects.filter(author=self.request.user)
+                print(context['user_posts'])
         return context
 
 class ProfilePicture(DetailView):
@@ -41,7 +48,7 @@ class ProfilePicture(DetailView):
     def get(self, request, *args, **kwargs):
         user = self.get_object()
         pfp_url = str(user.pfp)
-        return redirect(f"/media/{pfp_url}")
+        return redirect(f"https://s3.tebi.io/mediavault/{pfp_url}")
 
 from django.views.generic.edit import UpdateView
 

@@ -1,8 +1,11 @@
 import uuid
 from django.db import models
 from django.utils.text import slugify
+from django.utils.html import strip_tags
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
+from django.template.defaultfilters import truncatewords
+from django.urls import reverse
 # Create your models here.
 class Post(models.Model):
     uuid = models.UUIDField(
@@ -25,9 +28,21 @@ class Post(models.Model):
     content = RichTextField()
 
     slug = models.SlugField(unique=True, max_length=512, editable=False)
+    public = models.BooleanField(default=True)
 
     # Add a timestamp for publication date
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('blog-detail', args=[str(self.slug)])
+
+    def generate_meta_title(self):
+        return f"{self.title} - {self.author.username}'s Blog"
+
+    def generate_meta_description(self, max_words=30):
+        content_text = strip_tags(self.content)
+        truncated_content = truncatewords(content_text, max_words)
+        return f"{truncated_content} - Read more on {self.author.username}'s Blog"
 
     def save(self, *args, **kwargs):
         # Automatically generate the slug from the title
@@ -40,7 +55,7 @@ class Post(models.Model):
         super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return f"{self.title} - {self.author.username} (Public: {self.public})"
 
 
 class Tippani(models.Model):

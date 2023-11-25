@@ -23,7 +23,7 @@
 {% block content %}
 <div class="container mx-auto p-8">
     <div class="flex items-center justify-center mb-8">
-        <img src="https://s3.tebi.io/mediavault/{{ user_profile.pfp }}" alt="{{ user_profile.user.first_name }}'s Profile Picture" class="w-40 h-40 rounded-full">
+        <img src="https://s3.tebi.io/mediavault/{{ user_profile.pfp }}" alt="{{ user_profile.user.first_name }}'s Profile Picture" style="object-fit: cover;" class="w-40 h-40 rounded-full">
         <div class="ml-4">
           <h1 class="text-3xl font-bold">{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</h1>
           <p class="text-gray-600">{{ user_profile.bio }}</p>
@@ -44,7 +44,12 @@
         {% if user_posts %}
           {% for post in user_posts %}
         <a href="/blogs/{{ post.slug }}" class="group block no-underline hover:bg-gray-100 rounded-md p-4 mb-4">
-                <h3 class="text-xl font-bold mb-2">{{ post.title }}</h3>
+          <h3 class="text-xl font-bold mb-2">
+            {% if not post.public %}
+              [PRIVATE]
+            {% endif %}
+            {{ post.title }}
+          </h3>
                 <p class="hidden group-hover:block group-hover:transition-all duration-100 text-gray-800">{{ post.generate_meta_description }}</p>
                 <p class="text-gray-600">Published on: {{ post.created_at }}</p>
                 <!-- Add more post details as needed -->

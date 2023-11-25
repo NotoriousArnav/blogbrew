@@ -1,17 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>{% if blog_post %}Edit Blog{% else %}Create Blog{% endif %}</title>
     {% load static %}
     <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
     <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <link href="/static/style.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <h1>{% if blog_post %}Edit Blog{% else %}Create Blog{% endif %}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+
+<nav class="flex gap-2 items-center shadow-lg">
+    <img src="/static/bromine.rmbg.png" width="100" height="100" alt="Bromine Logo">
+    <strong class="text-xl">
+        <span>
+            Bromine
+        </span>
+    </strong>
+    <ul class="sm:flex gap-2 ml-auto mr-10">
+        <li><a href="/">Home</a></li>
+        <li><a href="https://brocode-tech.netlify.app">BroCode Tech Community</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="/profile/{{ user.username }}">Profile</a></li>
+            <li><a href="/new/blogs/">New Post</a></li>
+        {% else %}
+            <li><a href="/accounts/login">Sign up</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<section class="p-1 ml-5 mr-5 sm:p-2 sm:ml-10 sm:mr-10 mt-5 mb-5">
+<h1>{% if blog_post %}Edit Blog{% else %}Create Blog{% endif %}</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="bg-blue-400">Save</button>
+  </form>
+</section>
 </body>
 </html>
+

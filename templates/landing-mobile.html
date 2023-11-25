@@ -1,45 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bromine</title>
     <link rel="stylesheet" href="/static/style.css">
-<style>
-    body {
-        background-image: url('https://assets.digitalocean.com/labs/images/community_bg.png');
-    }
-</style>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <meta name="google-site-verification" content="iEI1mOwBPd8GMa9nAbEKC964i9BAXazSsodUSSbRMqQ" />
 </head>
 
-<body class="text-white">
-   <header class="divide-y">
-        <nav class="flex items-center gap-4 divide-x">
-            <img class="inline-block" width="100" height="100" src="/static/bromine.rmbg.png" alt="">
-            <strong class="p-1 text-4xl">Bromine</strong>
-            <ul class="gap-2 p-2">
-                <li><a href="">Home</a></li>
-                <li><a href="https://brocode-tech.netlify.app">BroCode</a></li>
-                <li><a href="">Sign in</a></li>
-            </ul>
-        </nav>
-        <div class="text-white m-10 p-8">
-            <div>
-                <h1 class="text-6xl">Hi, This is Bromine.</h1>
-                <h2 class="text-4xl">The Open Source blogging Platform</h2>
-            </div>
-            <div class="p-3 flex divide-x">
-                <a class="p-2 hover:underline" href="https://brocode-tech.netlify.app">
-                    <img class="inline-block" src="/static/bctc-logo.jpg" width="56" height="56" alt="">
-                    BroCode
-                </a>
-                <br>
-                <a class="p-2 hover:underline" href="/accounts/login">
-                    <img class="inline-block" src="/static/bromine.rmbg.png" width="56" height="56" alt="">
-                    Register
-                </a>
-            </div>
+<body class="bg-gray-100">
+
+    <nav class="p-4 bg-white">
+        <div class="flex items-center">
+            <img src="/static/bromine.rmbg.png" width="40" height="40" alt="Bromine Logo">
+            <strong class="text-xl ml-2">
+                <span>Bromine</span>
+            </strong>
         </div>
-   </header> 
+    </nav>
+
+    <div class="p-4">
+        <h1 class="text-3xl font-bold">Hi, This is Bromine!</h1>
+        <p class="text-lg mt-2">The OpenSource blog brewing Platform for Devs.</p>
+
+        <hr class="my-4">
+
+        <div class="grid grid-cols-1 gap-4">
+
+            <div class="mb-4">
+                <a href="https://brocode-tech.netlify.app" class="block p-4 rounded bg-orange-600 hover:bg-orange-800 text-white">Visit BroCode Tech Community</a>
+            </div>
+
+            {% if user.is_authenticated %}
+            <div class="mb-4">
+                <a href="/profile/{{ user.username }}" class="block p-4 rounded bg-red-800 hover:bg-orange-900 text-white">{{ user.first_name }}'s Profile</a>
+            </div>
+            {% else %}
+            <div class="mb-4">
+                <a href="/accounts/login" class="block p-4 rounded bg-red-800 hover:bg-orange-900 text-white">Register for Bromine</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <hr class="my-4">
+
+        
+        {% if blogs %}
+        <div style="background-image: url('/static/bromine.jpg'); background-size: cover; background-position: center;" class="grid grid-cols-1 gap-4">
+            <strong class="text-xl">Top Articles</strong>
+            {% for x in blogs %}
+            <div class="bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-lg overflow-hidden shadow-md transition-all opacity-80 hover:opacity-100">
+                <a alt="{{ x.author.username }}'s Profile" href="/profile/{{ x.author.username }}/">
+                    <img class="w-full h-32 object-cover" src="/avatar/{{ x.author.username }}" alt="{{ x.author.first_name }}">
+                </a>
+                <a href="/blogs/{{ x.slug }}" class="p-4">
+                    <p class="text-sm">
+                        {{ x.author.first_name }} {{ x.author.last_name }}
+                        (@{{ x.author.username }})
+                    </p>
+                    <p class="text-3xl">
+                        {{ x.title }}
+                    </p>
+                    <p class="text-lg">
+                        {{ x.created_at }}
+                    </p>
+                </a>
+            </div>
+            <hr class="my-4">
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <hr class="my-4">
+        {% if users %}
+        <div class="grid grid-cols-1 gap-4">
+            <strong class="text-xl">Top Brewers</strong>
+            {% for user in users %}
+            {% if user.pfp %}
+            <a class="p-4 bg-white rounded-md shadow-md hover:bg-gray-200 transition duration-300" href="/profile/{{ user.user.username }}/">
+                <img class="rounded-full" style="max-width: 20%" src="https://s3.tebi.io/mediavault/{{ user.pfp }}" alt="{{ user }}">
+                <div class="mt-2">
+                    <span class="block text-lg font-semibold">
+                        {{ user.user.first_name }}
+                        @({{ user.user.username }})
+                    </span>
+                    <span class="text-sm block">
+                        {{ user.bio }}
+                    </span>
+                </div>
+            </a>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+        <!-- Place this tag where you want the button to render. -->
+        <a class="github-button mt-4" href="https://github.com/brocode501" aria-label="Follow @buttons on GitHub">Follow @BroCode501</a>
+        <!-- Place this tag where you want the button to render. -->
+        <a class="github-button" href="https://github.com/BroCode501/blogbrew" data-icon="octicon-star" aria-label="Star Bromine on GitHub">Star</a>
+        <br>
+        <p class="mt-4 text-center text-sm text-gray-600">
+            Built with ❤️ by BroCode Tech Community
+        </p>
+        <p class="text-center text-sm text-gray-600">
+            If you don't like this Frontend, then please Contribute here at <a class="hover:underline" href="https://gitlab.com/NotoriousArnav/blogbrew">GitLab Repo</a> or <a class="hover:underline" href="https://github.com/NotoriousArnav/blogbrew">GitHub Repo</a> or Use our APIs to make a better frontend.
+        </p>
+    </div>
 </body>
+
 </html>

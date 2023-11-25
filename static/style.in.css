@@ -2,6 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
+.django-ckeditor-widget {
+  width: 100%;
+}
+
+.prose a {
+  @apply text-blue-400 hover:text-blue-500 hover:underline;
+}
+
+/* styles.css */
+
+label {
+  @apply block text-sm font-medium text-gray-700;
+}
+
+input {
+  @apply w-full px-4 py-2 mt-2 border rounded-md;
+}
+
+textarea {
+  @apply w-full px-4 py-2 mt-2 border rounded-md;
+}
+
+#id_pfp {
+  @apply mt-2;
+}
+
+.helptext {
+  @apply block text-sm text-gray-500;
+}
+
+button {
+  @apply bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600;
+}
+
+
 body {
     /* background-color: #A7A6A4; */
 }
+
+h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+h4 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+h6 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+pre {
+  @apply p-4 m-4 border-2;
+}
+
