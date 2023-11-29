@@ -17,7 +17,6 @@ class Profile(DetailView):
     def get_object(self, queryset=None):
         # Get the User object for the given username
         user = User.objects.get(username=self.kwargs['username'])
-        print(user, self.kwargs['username'])
         # Get the UserProfile associated with the User
         return UserProfile.objects.get(user=user)
 
@@ -26,9 +25,7 @@ class Profile(DetailView):
         context['user_posts'] = Post.objects.filter(author=context['user_profile'].user, public=True)
         if self.request.user.is_authenticated:
             if self.request.user.username == context['user_profile'].user.username:
-                print("Inside Profile View")
                 context['user_posts'] = Post.objects.filter(author=self.request.user)
-                print(context['user_posts'])
         return context
 
 class ProfilePicture(DetailView):
@@ -41,7 +38,6 @@ class ProfilePicture(DetailView):
     def get_object(self, queryset=None):
         # Get the User object for the given username
         user = User.objects.get(username=self.kwargs['username'])
-        print(user, self.kwargs['username'])
         # Get the UserProfile associated with the User
         return UserProfile.objects.get(user=user)
 

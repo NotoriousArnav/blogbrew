@@ -32,9 +32,14 @@ class UserProfile(models.Model):
     )
     def __str__(self):  
         return "%s's profile" % self.user
-    
+
     def get_absolute_url(self):
         return reverse('profile_view', args=[str(self.user.username)])
+    def isDefaultProfile(self):
+        default_pfp = self._meta.get_field('pfp').get_default()
+        if self.pfp == default_pfp:
+            return True
+        return False
 
 def create_user_profile(sender, instance, created, **kwargs):  
     if created:  

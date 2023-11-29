@@ -58,11 +58,10 @@ def index(req):
     blogs = Post.objects.filter(public=True).order_by('-created_at')[:5]
     users = list(
                 sorted(
-                    UserProfile.objects.all(),
+                    UserProfile.objects.exclude(pfp="av.jpg"),
                     key=lambda x: random.random()
                 )
             )[:10]
-    print(users)
     if ua.is_mobile:
         return render(
                     req,

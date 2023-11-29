@@ -78,10 +78,6 @@ class PostView(views.APIView):
         
 
         if blog_post.author != request.user:
-            print(f"""
-                {blog_post.author=}
-                {request.user=}
-            """)
             return response.Response({'detail': 'You do not have permission to update this post.'}, status=status.HTTP_403_FORBIDDEN)
 
         # Delete the blog post
@@ -133,9 +129,6 @@ class CommentDetailView(views.APIView):
         # Check if the user is the author of the comment or has permission to delete
         if comment.user == request.user:
             comment.delete()
-            print("Deleted")
             return response.Response(status=status.HTTP_204_NO_CONTENT)
         else:
-            print("Not Deleted (permisson error)")
             return response.Response({'detail': 'You do not have permission to delete this comment.'}, status=status.HTTP_403_FORBIDDEN)
-        print("What the F??")
