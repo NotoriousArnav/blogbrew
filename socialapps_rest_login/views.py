@@ -25,7 +25,7 @@ class Profile(DetailView):
         context['user_posts'] = Post.objects.filter(author=context['user_profile'].user, public=True).order_by('-created_at')
         if self.request.user.is_authenticated:
             if self.request.user.username == context['user_profile'].user.username:
-                context['user_posts'] = Post.objects.filter(author=self.request.user)
+                context['user_posts'] = Post.objects.filter(author=self.request.user).order_by('-created_at')
         return context
 
 class ProfilePicture(DetailView):
