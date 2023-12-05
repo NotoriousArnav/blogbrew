@@ -5,6 +5,25 @@ from django.db.models.signals import post_save
 from uuid import uuid4
 from datetime import date
 from django.urls import reverse
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
+def compressImage(uploaded_image, username):
+  image_temp = Image.open(uploaded_image)
+  outputIoStream = BytesIO()
+  image_temp.thumbnail( (800,800) )
+  image_temp.save(outputIoStream , format='JPEG', quality=60)
+  outputIoStream.seek(0)
+  filename = f"{username}.{uploaded_image.name.split('.')[-1]}";print("compressing");
+  uploaded_image = InMemoryUploadedFile(
+            outputIoStream,
+            'ImageField',
+            filename,
+            'image/jpeg',
+            sys.getsizeof(outputIoStream), None
+        )
+  return uploaded_image
 
 # Create your models here.
 class UserProfile(models.Model):
@@ -41,8 +60,13 @@ class UserProfile(models.Model):
             return True
         return False
 
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.pfp = compressImage(self.pfp, self.user.username)
+        super(UserProfile, self).save(*args, **kwargs)
+
 def create_user_profile(sender, instance, created, **kwargs):  
     if created:  
-       profile, created = UserProfile.objects.get_or_create(user=instance)  
+        profile, created = UserProfile.objects.get_or_create(user=instance)  
 
 post_save.connect(create_user_profile, sender=User)
