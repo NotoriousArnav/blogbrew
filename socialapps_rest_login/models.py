@@ -8,6 +8,7 @@ from django.urls import reverse
 from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+import sys
 
 def compressImage(uploaded_image, username):
   image_temp = Image.open(uploaded_image)
