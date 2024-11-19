@@ -16,5 +16,5 @@ class PostFeed(Feed):
     def item_title(self, item):
         return item.title
         
-    def item_description(self):
+    def item_description(self, item):
         return item.generate_meta_description()
