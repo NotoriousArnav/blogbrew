@@ -11,7 +11,7 @@ class PostFeed(Feed):
     link = "feeds/"
 
     def items(self):
-        return Post.objects.all()
+        return Post.objects.all()[::-1]
 
     def item_title(self, item):
         return item.title
