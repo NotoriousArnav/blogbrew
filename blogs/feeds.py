@@ -19,5 +19,5 @@ class PostFeed(Feed):
     def item_description(self, item):
         return item.generate_meta_description()
 
-    def item_author(self, item):
+    def item_author_name(self, item):
         return item.author
