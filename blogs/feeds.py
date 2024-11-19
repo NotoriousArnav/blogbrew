@@ -11,7 +11,7 @@ class PostFeed(Feed):
     link = "feeds/"
 
     def items(self):
-        return Post.published.all()
+        return Post.objects.all()
 
     def item_title(self, item):
         return item.title

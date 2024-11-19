@@ -59,6 +59,7 @@ class Post(models.Model):
 
 
 class Tippani(models.Model):
+    """Comment Model"""
     uuid = models.UUIDField(
         default=uuid.uuid4,
         unique=True,
