@@ -8,7 +8,7 @@ from .models import Post
 class PostFeed(Feed):
     title = "Bromine"
     description = "Latest on Bromine"
-    link = "feeds/"
+    link = "/feed/"
 
     def items(self):
         return Post.objects.filter(public=True).order_by('-created_at')
@@ -18,3 +18,6 @@ class PostFeed(Feed):
         
     def item_description(self, item):
         return item.generate_meta_description()
+
+    def item_author(self, item):
+        return item.author
