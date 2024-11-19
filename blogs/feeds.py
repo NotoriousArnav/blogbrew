@@ -8,7 +8,7 @@ from .models import Post
 class PostFeed(Feed):
     title = "Bromine"
     description = "Latest on Bromine"
-    link = reverse_lazy("blogs:posts_list")
+    link = "feeds/"
 
     def items(self):
         return Post.published.all()
