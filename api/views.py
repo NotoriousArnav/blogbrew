@@ -39,7 +39,7 @@ class UserProfileModelViewSet(generics.GenericAPIView):
         return response.Response(dt)
 
 class BlogListView(generics.ListAPIView):
-    queryset = Post.objects.all()
+    queryset = Post.objects.filter(public=True).order_by('-created_at')
     serializer_class = PostSerializer
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
     filterset_fields = ['uuid', 'author__username', 'slug', 'title', 'created_at', 'content']

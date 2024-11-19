@@ -11,7 +11,7 @@ class PostFeed(Feed):
     link = "feeds/"
 
     def items(self):
-        return Post.objects.all()[::-1]
+        return Post.objects.filter(public=True).order_by('-created_at')
 
     def item_title(self, item):
         return item.title

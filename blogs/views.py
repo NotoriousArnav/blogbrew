@@ -12,7 +12,7 @@ from .models import Post
 from .models import Tippani as Comment
 import bleach
 
-allowed_tags = ['a', 'p', 'strong', 'em', 'ul', 'ol', 'li'] + list(bleach.sanitizer.ALLOWED_TAGS) + ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'img']
+allowed_tags = ['a', 'p', 'strong', 'em', 'ul', 'ol', 'li'] + list(bleach.sanitizer.ALLOWED_TAGS) + ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'img', 'div']
 bleach.sanitizer.ALLOWED_ATTRIBUTES.update({
     'img': ['src', 'alt', 'height', 'width'],
     'a': ['href', 'title'],
