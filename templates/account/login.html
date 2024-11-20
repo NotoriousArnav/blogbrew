@@ -1,5 +1,8 @@
 {% load i18n %}
 {% load allauth account %}
+<head>
+  <link rel="stylesheet" type="" href="/static/style.css">
+</head>
 {% block head_title %}
   Login to Bromine
 {% endblock head_title %}
@@ -24,7 +27,7 @@
             {% endslot %}
             {% slot actions %}
                 {% element button type="submit" tags="prominent,login" %}
-                    {% trans "Sign In" %}
+                Login
                 {% endelement %}
             {% endslot %}
         {% endelement %}
@@ -46,57 +49,7 @@
         {% endelement %}
     {% endif %}
     {% if SOCIALACCOUNT_ENABLED %}
-        {% load i18n %}
-{% load allauth %}
-{% load socialaccount %}
-{% get_providers as socialaccount_providers %}
-{% if socialaccount_providers %}
-    {% if not SOCIALACCOUNT_ONLY %}
-        {% element hr %}
-        {% endelement %}
-        {% element h2 %}
-            {% translate "Or use a third-party" %}
-        {% endelement %}
-    {% endif %}
-{% load allauth socialaccount %}
-{% get_providers as socialaccount_providers %}
-{% if socialaccount_providers %}
-    {% element provider_list %}
-        {% for provider in socialaccount_providers %}
-            {% if provider.id == "openid" %}
-                {% for brand in provider.get_brands %}
-                    {% provider_login_url provider openid=brand.openid_url process=process as href %}
-                    {% element provider name=brand.name provider_id=provider.id href=href %}
-                    {% endelement %}{% load allauth socialaccount %}
-{% get_providers as socialaccount_providers %}
-{% if socialaccount_providers %}
-    {% element provider_list %}
-        {% for provider in socialaccount_providers %}
-            {% if provider.id == "openid" %}
-                {% for brand in provider.get_brands %}
-                    <span>1</span>
-                    {% provider_login_url provider openid=brand.openid_url process=process as href %}
-                    {% element provider name=brand.name provider_id=provider.id href=href %}
-                    {% endelement %}
-                {% endfor %}
-            {% endif %}
-            {% provider_login_url provider process=process scope=scope auth_params=auth_params as href %}
-            {% element provider name=provider.name provider_id=provider.id href=href %}
-            {% endelement %}
-        {% endfor %}
-    {% endelement %}
-{% endif %}
-                {% endfor %}
-            {% endif %}
-            {% provider_login_url provider process=process scope=scope auth_params=auth_params as href %}
-            {% element provider name=provider.name provider_id=provider.id href=href %}
-            {% endelement %}
-        {% endfor %}
-    {% endelement %}
-{% endif %}
-
-    {% include "socialaccount/snippets/login_extra.html" %}
-{% endif %}
+        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
     {% endif %}
 
 {% endblock content %}
