@@ -36,6 +36,9 @@ button {
   @apply bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600;
 }
 
+.login {
+  @apply text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg;
+}
 
 body {
     /* background-color: #A7A6A4; */

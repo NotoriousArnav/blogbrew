@@ -20,7 +20,7 @@
       <form class="login" method="POST" action="{% url 'account_login' %}">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit" class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Login</button>
+      <button type="submit" class="login">Login</button>
       </form>
       <p class="text-center text-xs text-gray-500 mt-3">Or Login with</p>
       <p class="text-center leading-relaxed mt-4">
