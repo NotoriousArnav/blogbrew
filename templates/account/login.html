@@ -1,3 +1,4 @@
+{% extends 'base.html'  %}
 {% load i18n %}
 {% load allauth account %}
 <head>
@@ -26,7 +27,7 @@
                 {{ redirect_field }}
             {% endslot %}
             {% slot actions %}
-                {% element button type="submit" tags="prominent,login" %}
+                {% element button type="submit" tags="prominent,login" class="bg-blue-200" %}
                 Login
                 {% endelement %}
             {% endslot %}
