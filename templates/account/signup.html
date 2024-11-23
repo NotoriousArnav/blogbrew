@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load account socialaccount %}
+{% load socialaccount %}
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block content %}
+
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
+    <div class="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
+      <h1 class="title-font font-medium text-3xl text-gray-900">Register now at YogDaan</h1>
+      <p class="leading-relaxed mt-4">
+        Alternatively, you can Use Github/Google to Log in.
+        Click here to <a class="hover:underline text-blue-500 hover:text-blue-600" href="{{ login_url }}">sign in</a>.
+      </p>
+
+    </div>
+    <div class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+      <h2 class="text-gray-900 text-lg font-medium title-font mb-5">Sign up</h2>
+      <form class="login" method="POST" action="{% url 'account_signup' %}">
+      {{ form.as_p }}
+      </form>
+      <button type="submit" class="text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Login</button>
+      <p class="text-center text-xs text-gray-500 mt-3">Or Login with</p>
+      <p class="text-center leading-relaxed mt-4">
+        {% get_providers as socialaccount_providers %}
+        {% for provider in socialaccount_providers %}
+        <a
+            title="{{provider.name}}"
+            class="socialaccount_provider {{provider.id}}"
+            href="{% provider_login_url provider process=process scope=scope auth_params=auth_params %}"
+          >
+          <i class="fa-brands fa-{{provider.id}}"></i>
+          {{provider.name}}
+        </a>&nbsp;
+        {% endfor %}
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}
