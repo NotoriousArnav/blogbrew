@@ -1,60 +1,55 @@
-<!DOCTYPE html>
 {% load i18n %}
 {% load allauth account %}
-<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-  <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
-    <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">Welcome Back</h1>
-    <form class="space-y-4" method="post">
-      {% csrf_token %}
-      {% for message in messages %}
-        <script>
-          console.log('{{ message }}')
-        </script>
-      {% endfor%}
+{% block head_title %}
+  Login to Bromine
+{% endblock head_title %}
+{% block content %}
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+
+    <h1 class="text-4xl">Login to Bromine</h1>
+  
+    {% if not SOCIALACCOUNT_ONLY %}
+        {% setvar link %}
             <a href="{{ signup_url }}">
-              Signup here
+            {% endsetvar %}
+            {% setvar end_link %}
             </a>
-      <div>
-        <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-        <input type="text" id="username" name="username" 
-          class="w-full mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
-      </div>
-      <div>
-        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-        <input type="password" id="password" name="password" 
-          class="w-full mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
-      </div>
-      <button type="submit" 
-        class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">
-        Login
-      </button>
-    </form>
-    <div class="my-4 text-center text-sm text-gray-600">or</div>
-      {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
-    <!--
-<div class="space-y-3">
-      <button class="w-full flex items-center justify-center space-x-3 bg-gray-800 text-white py-2 rounded-md hover:bg-gray-900 transition">
-        <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24">
-          <path d="M12 0C5.372 0 0 5.372 0 12c0 5.301 3.438 9.8 8.205 11.387.6.111.82-.261.82-.577 0-.285-.011-1.041-.017-2.045-3.338.726-4.042-1.608-4.042-1.608-.546-1.387-1.333-1.757-1.333-1.757-1.091-.745.083-.729.083-.729 1.205.084 1.838 1.237 1.838 1.237 1.07 1.835 2.807 1.305 3.493.997.108-.774.419-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.931 0-1.31.469-2.381 1.235-3.222-.124-.304-.535-1.524.117-3.176 0 0 1.007-.322 3.301 1.23a11.511 11.511 0 013.003-.404c1.019.005 2.048.137 3.003.404 2.293-1.552 3.297-1.23 3.297-1.23.655 1.653.244 2.872.12 3.176.77.841 1.234 1.912 1.234 3.222 0 4.61-2.806 5.624-5.475 5.921.43.37.813 1.104.813 2.223 0 1.607-.015 2.905-.015 3.297 0 .319.216.694.825.577C20.565 21.797 24 17.298 24 12c0-6.628-5.372-12-12-12z"/>
-        </svg>
-        <span>Login with GitHub</span>
-      </button>
-      <button class="w-full flex items-center justify-center space-x-3 bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition">
-        <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24">
-          <path d="M12 0C5.4 0 0 5.4 0 12c0 5.4 3.6 9.9 8.4 11.4.6.1.9-.3.9-.6v-2c-3.3.6-4.1-1.5-4.1-1.5-.5-1.2-1.2-1.5-1.2-1.5-.9-.6.1-.6.1-.6 1 .1 1.6 1.1 1.6 1.1.9 1.6 2.4 1.2 3 .9.1-.6.4-1.2.7-1.5-2.7-.3-5.4-1.3-5.4-5.8 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.6.1-3.3 0 0 1-.3 3.3 1.2a11.6 11.6 0 016 0C19 3.7 20 4 20 4c.7 1.7.2 3-.1 3.3.8.9 1.2 2 1.2 3.3 0 4.5-2.7 5.5-5.4 5.8.5.4.8 1.1.8 2.2v3.3c0 .3.3.7.9.6C20.4 22 24 17.4 24 12 24 5.4 18.6 0 12 0z"/>
-        </svg>
-        <span>Login with GitLab</span>
-      </button>
-    </div>
-    -->
-    
-  </div>
-</body>
-</html>
+        {% endsetvar %}
+        {% url 'account_login' as login_url %}
+        {% element form form=form method="post" action=login_url tags="entrance,login" %}
+            {% slot body %}
+                {% csrf_token %}
+                {% element fields form=form unlabeled=True %}
+                {% endelement %}
+                {{ redirect_field }}
+            {% endslot %}
+            {% slot actions %}
+                {% element button type="submit" tags="prominent,login" class="bg-blue-200" %}
+                Login
+                {% endelement %}
+            {% endslot %}
+        {% endelement %}
+    {% endif %}
+    {% if LOGIN_BY_CODE_ENABLED or PASSKEY_LOGIN_ENABLED %}
+        {% element hr %}
+        {% endelement %}
+        {% element button_group vertical=True %}
+            {% if PASSKEY_LOGIN_ENABLED %}
+                {% element button type="submit" form="mfa_login" id="passkey_login" tags="prominent,login,outline,primary" %}
+                    {% trans "Sign in with a passkey" %}
+                {% endelement %}
+            {% endif %}
+            {% if LOGIN_BY_CODE_ENABLED %}
+                {% element button href=request_login_code_url tags="prominent,login,outline,primary" %}
+                    {% trans "Mail me a sign-in code" %}
+                {% endelement %}
+            {% endif %}
+        {% endelement %}
+    {% endif %}
+    {% if SOCIALACCOUNT_ENABLED %}
+        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+    {% endif %}
+{% endblock content %}
