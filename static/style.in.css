@@ -44,6 +44,10 @@ body {
     /* background-color: #A7A6A4; */
 }
 
+.github {
+  @apply bg-slate-700 hover:bg-slate-800 text-white rounded-md py-2 px-4;
+}
+
 h1 {
   font-size: 1.875rem;
   line-height: 2.25rem;
