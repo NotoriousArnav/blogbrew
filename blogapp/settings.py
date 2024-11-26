@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     # Plugins
     'rest_framework',
     'storages',
+    'corsheaders',
     # 'rest_framework_swagger',
     'django_filters',
     'rest_framework.authtoken',
@@ -87,9 +88,37 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
     "blogs.middleware.DeviceDetectionMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+            "corsheaders.middleware.CorsMiddleware",
+                "django.middleware.common.CommonMiddleware",
+                    "django.middleware.csrf.CsrfViewMiddleware",
+                        "django.contrib.auth.middleware.AuthenticationMiddleware",
+                            "django.contrib.messages.middleware.MessageMiddleware",
+                                "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 ROOT_URLCONF = 'blogapp.urls'
+
+CORS_URLS_REGEX = r"^/api/.*$"
+
+CORS_ALLOW_METHODS = (
+            "DELETE",
+                "GET",
+                    "OPTIONS",
+                        "PATCH",
+                            "POST",
+                                "PUT",
+                                )
+
+CORS_ALLOW_HEADERS = (
+            "accept",
+                "authorization",
+                    "content-type",
+                        "user-agent",
+                            "x-csrftoken",
+                                "x-requested-with",
+                                )
 
 TEMPLATES = [
     {
