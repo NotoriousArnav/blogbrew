@@ -20,3 +20,25 @@ class DeviceDetectionMiddleware:
 
 
 
+from django.http import HttpResponse
+
+class CORSAllowOriginMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+
+        if request.path.startswith('/api/'):
+            response['Access-Control-Allow-Origin'] = '*'
+            response['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+            response['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+
+        else:
+            # Block all requests to non-api endpoints
+            if request.method == 'OPTIONS':
+                return HttpResponse(status=200)
+            else:
+                return HttpResponse(status=403)
+
+        return response
