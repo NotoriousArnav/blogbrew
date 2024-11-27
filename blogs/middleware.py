@@ -34,11 +34,4 @@ class CORSAllowOriginMiddleware:
             response['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
             response['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
 
-        else:
-            # Block all requests to non-api endpoints
-            if request.method == 'OPTIONS':
-                return HttpResponse(status=200)
-            else:
-                return HttpResponse(status=403)
-
         return response
