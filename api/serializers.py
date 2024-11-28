@@ -29,7 +29,8 @@ class PostSerializer(serializers.ModelSerializer):
             'title',
             'content',
             'created_at',
-            'slug'
+            'slug',
+            'public'
         ]
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -39,7 +40,7 @@ class PostSerializer(serializers.ModelSerializer):
 class CreatePostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'public']
 
     def to_representation(self, instance):
             data = super().to_representation(instance)
