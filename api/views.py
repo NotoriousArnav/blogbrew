@@ -33,7 +33,6 @@ class UserProfileModelViewSet(generics.GenericAPIView):
         blog_data = [PostSerializer(post).data for post in posts]
         dt = serializer.data
         dt['user'] = user_data.data
-        del dt['user']['email']
         dt['posts'] = {
             'posts': blog_data
         }
