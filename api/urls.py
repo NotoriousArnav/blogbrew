@@ -11,7 +11,7 @@ from .views import *
 
 urlpatterns = [
     path('user/<str:username>/profile', UserProfileModelViewSet.as_view()),
-    path('blogs/', BlogListView.as_view()),
+    path('users/', UserProfileListView.as_view()),
     path('blogs/<slug>/', PostView.as_view()),
     path('create/blog/', CreateBlogPostView.as_view()),
     path('blogs/<slug>/comments/<uuid>', CommentDetailView.as_view(), name='tippani-retrieve-destroy'),
